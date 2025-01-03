@@ -1,13 +1,73 @@
 import PostCard from '../components/PostCard';
-import { getAllPosts, getAuthor, getAuthorPosts } from '../lib/cosmic';
 
-export async function PostList({ authorSlug }: { authorSlug?: string }) {
-  let posts = await getAllPosts();
-  let author;
-  if (authorSlug) {
-    author = await getAuthor(authorSlug);
-    posts = await getAuthorPosts(author.id);
+export function PostList() {
+  
+  let author = {
+    id: "author-1",
+    slug: "author-slug",
+    title: "Author Name",
+    metadata: {
+      image: {
+        imgix_url: '/avatar.png'
+      }
+    }
   }
+  let posts = [
+    {
+      id: "1",
+      slug: "example-post",
+      title: "Example Post Title",
+      metadata: {
+        published_date: "2023-10-01",
+        content: "<p>This is the content of the example post.</p>",
+        hero: {
+          imgix_url: '/image.png'
+        },
+        author: {
+          id: "author-1",
+          slug: "author-slug",
+          title: "Author Name",
+          metadata: {
+            image: {
+              imgix_url: '/avatar.png'
+            }
+          }
+        },
+        teaser: "<p>This is an example teaser for the post.</p>",
+        categories: [
+          { title: "Category 1" },
+          { title: "Category 2" }
+        ]
+      }
+    },
+    {
+      id: "1",
+      slug: "example-post",
+      title: "Example Post Title",
+      metadata: {
+        published_date: "2023-10-01",
+        content: "<p>This is the content of the example post.</p>",
+        hero: {
+          imgix_url: '/image.png'
+        },
+        author: {
+          id: "author-1",
+          slug: "author-slug",
+          title: "Author Name",
+          metadata: {
+            image: {
+              imgix_url: '/avatar.png'
+            }
+          }
+        },
+        teaser: "<p>This is an example teaser for the post.</p>",
+        categories: [
+          { title: "Category 1" },
+          { title: "Category 2" }
+        ]
+      }
+    }
+  ]
   return (
     <>
       {author && (

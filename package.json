@@ -11,6 +11,7 @@
     "@cosmicjs/sdk": "^1.0.5",
     "isomorphic-dompurify": "^1.8.0",
     "lucide-react": "^0.427.0",
+    "mongoose": "^8.9.3",
     "next": "canary",
     "react": "19.0.0-rc-68dbd84b-20240812",
     "react-dom": "19.0.0-rc-68dbd84b-20240812",

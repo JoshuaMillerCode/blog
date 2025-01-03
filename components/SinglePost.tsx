@@ -1,16 +1,46 @@
 import React from 'react';
 import Link from 'next/link';
 import ArrowLeft from './icons/ArrowLeft';
-import { getPost, getRelatedPosts } from '../lib/cosmic';
+// import { getPost, getRelatedPosts } from '../lib/cosmic';
 import SuggestedPostCard from './SuggestedPostCard';
 import Tag from './Tag';
 import AuthorAvatar from './AuthorAvatar';
 import AuthorAttribution from './AuthorAttribution';
 import { sanitize } from 'isomorphic-dompurify';
 
-export async function SinglePost({ slug }: { slug: string }) {
-  const post = await getPost(slug);
-  const suggestedPosts = await getRelatedPosts(slug);
+export function SinglePost({ slug }: { slug: string }) {
+  // make sure to use useEffect here
+  
+  // const post = await getPost(slug);
+  // const suggestedPosts = await getRelatedPosts(slug);
+  const post = {
+    id: "1",
+    slug: "example-post",
+    title: "Example Post Title",
+    metadata: {
+      published_date: "2023-10-01",
+      content: "<p>This is the content of the example post.</p>",
+      hero: {
+        imgix_url: "https://example.com/hero.jpg"
+      },
+      author: {
+        id: "author-1",
+        slug: "author-slug",
+        title: "Author Name",
+        metadata: {
+          image: {
+            imgix_url: "https://example.com/avatar.jpg"
+          }
+        }
+      },
+      teaser: "<p>This is an example teaser for the post.</p>",
+      categories: [
+        { title: "Category 1" },
+        { title: "Category 2" }
+      ]
+    }
+  }
+  
   return (
     <>
       {post && post.metadata.hero?.imgix_url && (
@@ -59,7 +89,7 @@ export async function SinglePost({ slug }: { slug: string }) {
                 ></div>
               </>
             )}
-            <div className="mx-auto mt-8 w-full">
+            {/* <div className="mx-auto mt-8 w-full">
               <hr className="w-full border-t border-zinc-300 pb-8 dark:border-zinc-700" />
               {suggestedPosts && (
                 <div className="flex w-full flex-col">
@@ -76,7 +106,7 @@ export async function SinglePost({ slug }: { slug: string }) {
                   </div>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </main>
