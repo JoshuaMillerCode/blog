@@ -13,18 +13,14 @@ export async function POST(req: NextRequest) {
 
   try {
     const { username, password } = await req.json();
-    console.log(username, password);
-
     // Find the user by username
     const user = await Admin.findOne({ username });
-    console.log(user);
     if (!user) {
       return NextResponse.json({ error: 'Invalid username' }, { status: 401 });
     }
 
     // Check if the password is correct
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log(isPasswordValid);
     if (!isPasswordValid) {
       return NextResponse.json(
         { error: 'Invalid username or password' },
@@ -34,8 +30,6 @@ export async function POST(req: NextRequest) {
 
     // Generate a JWT token
     const token = generateJWT(user);
-
-    console.log(token);
 
     // Return the token and user info
     return NextResponse.json(

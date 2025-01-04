@@ -1,12 +1,21 @@
-import jwt from 'jsonwebtoken';
+import { SignJWT, jwtVerify } from 'jose';
 import { Admin } from './types';
 
-export function generateJWT({ username }: Admin) {
-  return jwt.sign({ username: username }, process.env.JWT_SECRET as string, {
-    expiresIn: '24h',
-  });
+const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+
+export async function generateJWT(user: Admin) {
+  return new SignJWT({ id: user._id, username: user.username })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setExpirationTime('24h')
+    .sign(secret);
 }
 
-export function verifyJWT(token: string) {
-  return jwt.verify(token, process.env.JWT_SECRET as string);
+export async function verifyJWT(token: string) {
+  try {
+    const { payload } = await jwtVerify(token, secret);
+    return payload;
+  } catch (error) {
+    console.error('JWT verification failed:', error);
+    throw new Error('Invalid token');
+  }
 }
