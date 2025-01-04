@@ -5,16 +5,16 @@ import Tag from './Tag';
 import { Post } from '../lib/types';
 import AuthorAttribution from './AuthorAttribution';
 import AuthorAvatar from './AuthorAvatar';
-import { sanitize } from 'isomorphic-dompurify';
+import parse from 'html-react-parser'; 
 
 export default function PostCard({ post }: { post: Post }) {
   return (
     <div>
-      {post.metadata.hero?.imgix_url && (
+      {post.metadata.hero?.img_url && (
         <Link href={`/posts/${post.slug}`}>
           <img
             className="mb-5 h-[400px] w-full rounded-xl bg-no-repeat object-cover object-center transition-transform duration-200 ease-out hover:scale-[1.02]"
-            src={`${post.metadata.hero?.imgix_url}?w=1400&auto=compression,format`}
+            src={`${post.metadata.hero?.img_url}?w=1400&auto=compression,format`}
             alt={post.title}
           />
         </Link>
@@ -36,10 +36,8 @@ export default function PostCard({ post }: { post: Post }) {
       </div>
       <div
         className="py-6 text-zinc-500 dark:text-zinc-300"
-        dangerouslySetInnerHTML={{
-          __html: sanitize(post.metadata.teaser) ?? '',
-        }}
-      />
+        
+      >{parse(post.metadata.teaser)}</div>
       <div className="flex items-center justify-between font-medium text-green-600 dark:text-green-200">
         <Link href={`/posts/${post.slug}`}>
           <div className="flex items-center space-x-2">

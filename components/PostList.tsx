@@ -8,7 +8,7 @@ export function PostList() {
     title: "Author Name",
     metadata: {
       image: {
-        imgix_url: '/avatar.png'
+        img_url: '/avatar.png'
       }
     }
   }
@@ -21,7 +21,7 @@ export function PostList() {
         published_date: "2023-10-01",
         content: "<p>This is the content of the example post.</p>",
         hero: {
-          imgix_url: '/image.png'
+          img_url: '/image.png'
         },
         author: {
           id: "author-1",
@@ -29,7 +29,7 @@ export function PostList() {
           title: "Author Name",
           metadata: {
             image: {
-              imgix_url: '/avatar.png'
+              img_url: '/avatar.png'
             }
           }
         },
@@ -48,7 +48,7 @@ export function PostList() {
         published_date: "2023-10-01",
         content: "<p>This is the content of the example post.</p>",
         hero: {
-          imgix_url: '/image.png'
+          img_url: '/image.png'
         },
         author: {
           id: "author-1",
@@ -56,7 +56,7 @@ export function PostList() {
           title: "Author Name",
           metadata: {
             image: {
-              imgix_url: '/avatar.png'
+              img_url: '/avatar.png'
             }
           }
         },

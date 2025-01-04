@@ -7,7 +7,7 @@ const postSchema = new Schema({
     published_date: { type: String, required: true },
     content: { type: String, required: true },
     hero: {
-      imgix_url: { type: String },
+      img_url: { type: String },
     },
     author: {
       id: { type: String, required: true },
@@ -15,14 +15,14 @@ const postSchema = new Schema({
       title: { type: String, default: 'YourAverageDev' },
       metadata: {
         image: {
-          imgix_url: { type: String },
+          img_url: { type: String },
         },
       },
     },
     teaser: { type: String, required: true },
     categories: [
       {
-        title: { type: String, required: true },
+        title: { type: String },
       },
     ],
   },

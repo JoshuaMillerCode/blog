@@ -13,7 +13,7 @@ export interface Post {
     published_date: string;
     content: string;
     hero?: {
-      imgix_url?: string;
+      img_url?: string;
     };
     author?: {
       id: string;
@@ -21,7 +21,7 @@ export interface Post {
       title?: string;
       metadata: {
         image?: {
-          imgix_url?: string;
+          img_url?: string;
         };
       };
     };

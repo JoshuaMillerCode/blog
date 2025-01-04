@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@cosmicjs/sdk": "^1.0.5",
+    "html-react-parser": "^5.2.2",
     "isomorphic-dompurify": "^1.8.0",
     "lucide-react": "^0.427.0",
     "mongoose": "^8.9.3",
