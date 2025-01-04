@@ -9,8 +9,12 @@
   },
   "dependencies": {
     "@cosmicjs/sdk": "^1.0.5",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.7",
+    "bcrypt": "^5.1.1",
     "html-react-parser": "^5.2.2",
     "isomorphic-dompurify": "^1.8.0",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.427.0",
     "mongoose": "^8.9.3",
     "next": "canary",

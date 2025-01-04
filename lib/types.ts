@@ -5,6 +5,12 @@ export interface GlobalData {
   };
 }
 
+export interface Admin {
+  _id: string;
+  username: string;
+  password: string;
+}
+
 export interface Post {
   id: string;
   slug: string;
