@@ -10,11 +10,11 @@ const postSchema = new Schema({
       img_url: { type: String },
     },
     author: {
-      id: { type: String, required: true },
       slug: { type: String, default: 'youravgdev' },
       title: { type: String, default: 'YourAverageDev' },
       metadata: {
         image: {
+          // put default img here
           img_url: { type: String },
         },
       },

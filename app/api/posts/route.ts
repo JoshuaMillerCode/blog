@@ -18,6 +18,9 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
+
+    // set slug and published_date here
+
     // Maybe plug in some AI things here
     const post = await Post.create(body);
 
