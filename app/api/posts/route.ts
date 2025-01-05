@@ -10,7 +10,13 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   await connectToDatabase();
 
-  console.log(await req.json());
+  try {
+    const body = await req.json();
+    // Maybe plug in some AI things here
+    const post = await Post.create(body);
 
-  return NextResponse.json('created');
+    return NextResponse.json(post);
+  } catch (err) {
+    return NextResponse.json(err);
+  }
 }
