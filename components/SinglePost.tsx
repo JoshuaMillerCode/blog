@@ -14,41 +14,37 @@ export function SinglePost({ slug }: { slug: string }) {
   // const post = await getPost(slug);
   // const suggestedPosts = await getRelatedPosts(slug);
   const post = {
-    id: "1",
+    _id: "1",
     slug: "example-post",
     title: "Example Post Title",
-    metadata: {
-      published_date: "2023-10-01",
-      content: "<p>This is the content of the example post.</p>",
-      hero: {
-        img_url: "https://example.com/hero.jpg"
-      },
-      author: {
-        id: "author-1",
-        slug: "author-slug",
-        title: "Author Name",
-        metadata: {
-          image: {
-            img_url: "https://example.com/avatar.jpg"
-          }
-        }
-      },
-      teaser: "<p>This is an example teaser for the post.</p>",
-      categories: [
-        { title: "Category 1" },
-        { title: "Category 2" }
-      ]
-    }
-  }
+    published_date: "2023-10-01",
+    content: "<p>This is the content of the example post.</p>",
+    hero: {
+      img_url: "https://example.com/hero.jpg"
+    },
+    author: {
+      id: "author-1",
+      slug: "author-slug",
+      title: "Author Name",
+      image: {
+          img_url: "https://example.com/avatar.jpg"
+      }
+    },
+    teaser: "<p>This is an example teaser for the post.</p>",
+    categories: [
+      { title: "Category 1" },
+      { title: "Category 2" }
+    ]
+}
   
   return (
     <>
-      {post && post.metadata.hero?.img_url && (
+      {post && post.hero?.img_url && (
         <img
           width={1400}
           height={720}
           className="mb-5 h-[720px] w-full bg-no-repeat object-cover object-center"
-          src={`${post.metadata.hero?.img_url}?w=1400&auto=format,compression`}
+          src={`${post.hero?.img_url}?w=1400&auto=format,compression`}
           alt={post.title}
         />
       )}
@@ -75,14 +71,14 @@ export function SinglePost({ slug }: { slug: string }) {
                     <AuthorAttribution post={post} />
                   </div>
                   <div className="flex select-none justify-start space-x-2 md:justify-end">
-                    {post.metadata.categories &&
-                      post.metadata.categories.map((category) => (
+                    {post.categories &&
+                      post.categories.map((category) => (
                         <Tag key={category.title}>{category.title}</Tag>
                       ))}
                   </div>
                 </div>
                 <hr className="w-full border-t border-zinc-300 pb-8 dark:border-zinc-700" />
-                <div className='text-zinc-500'>{parse(post.metadata.content)}</div>
+                <div className='text-zinc-500'>{parse(post.content)}</div>
               </>
             )}
             {/* <div className="mx-auto mt-8 w-full">

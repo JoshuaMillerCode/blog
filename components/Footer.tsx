@@ -9,15 +9,15 @@ export default function Footer(): JSX.Element {
         target="_blank"
         className="no-underline"
       >
-        <div className="flex items-center space-x-2">
+        {/* <div className="flex items-center space-x-2">
           <CosmicLogo />
           <span className="text-zinc-700 dark:text-zinc-300">
             Proudly powered by Cosmic
           </span>
-        </div>
+        </div> */}
       </a>
       <div className="text-zinc-700 dark:text-zinc-300">
-        &copy;&nbsp;&nbsp;{new Date().getFullYear()} Cosmic
+        &copy;&nbsp;&nbsp;{new Date().getFullYear()} Your Average Dev
       </div>
     </footer>
   );

@@ -15,36 +15,21 @@ export interface Post {
   _id: string;
   slug: string;
   title: string;
-  metadata: {
-    published_date: string;
-    content: string;
-    hero?: {
+  published_date: string;
+  content: string;
+  hero?: {
+    img_url?: string;
+  };
+  author?: {
+    id: string;
+    slug?: string;
+    title?: string;
+    image?: {
       img_url?: string;
     };
-    author?: {
-      id: string;
-      slug?: string;
-      title?: string;
-      metadata: {
-        image?: {
-          img_url?: string;
-        };
-      };
-    };
-    teaser: string;
-    categories: {
-      title: string;
-    }[];
   };
-}
-
-export interface Author {
-  id: string;
-  slug: string;
-  title: string;
-  metadata: {
-    image?: {
-      imgix_url?: string;
-    };
-  };
+  teaser: string;
+  categories: {
+    title: string;
+  }[];
 }

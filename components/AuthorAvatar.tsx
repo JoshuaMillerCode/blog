@@ -3,10 +3,10 @@ import { Post } from '../lib/types';
 
 export default function AuthorAvatar({ post }: { post: Post }): JSX.Element {
   return (
-    <Link href={`/author/${post.metadata.author?.slug}`}>
+    <Link href={`/author/${post.author?.slug}`}>
       <img
         className="h-8 w-8 rounded-full"
-        src={`${post.metadata.author?.metadata.image?.img_url}?w=100&auto=format,compression`}
+        src={`${post.author?.image?.img_url}?w=100&auto=format,compression`}
         alt={post.title}
       />
     </Link>

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyJWT } from './lib/auth';
 
+// I need a type for likes
+
 const PROTECTED_METHODS = ['POST', 'PUT', 'DELETE'];
 
 export async function middleware(req: NextRequest) {

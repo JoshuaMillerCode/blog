@@ -1,17 +1,24 @@
 'use client'
 import React, { useState } from 'react';
+import TipTap from '../../../components/TipTap';
+
+// export default () => {
+//   return <TipTap  />;
+// }
 
 const NewPostPage = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [imgUrl, setImgUrl] = useState('');
   const [teaser, setTeaser] = useState('');
-  const [categories, setCategories] = useState<string[]>(['']);
+  const [categories, setCategories] = useState<Array<string>>(['']);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const postData = { title, content, imgUrl, teaser, categories };
-    console.log(postData);
+    const postData = { title, content, imgUrl, teaser, categories: categories.map((cat) => { 
+      return { title: cat };
+    }) };
+    
     // Handle form submission, e.g., send postData to an API
   };
 
