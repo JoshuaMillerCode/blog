@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, models } from 'mongoose';
 
 const postSchema = new Schema({
   slug: { type: String, required: true, unique: true },
@@ -28,4 +28,4 @@ const postSchema = new Schema({
   },
 });
 
-export default model('Post', postSchema);
+export default models.Post || model('Post', postSchema);

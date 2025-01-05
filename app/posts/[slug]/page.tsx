@@ -7,11 +7,13 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }) {
-  // const { slug } = await params;
-  // const post = await getPost(slug);
-  // return {
-  //   title: `${post.title} | Simple Next.js Blog`,
-  // };
+  const { slug } = await params;
+
+  // const post = await fetch('/api/posts/' + slug).then((res) => res.json());
+
+  return {
+    title: `Your Average Developer Blog`,
+  };
 }
 
 export default async ({ params }: { params: { slug: string } }) => {

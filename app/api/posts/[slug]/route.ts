@@ -2,6 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectToDatabase from '../../../../lib/mongodb';
 import Post from '../../../../models/Post';
 
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  await connectToDatabase();
+
+  try {
+    const { slug } = await params;
+    const post = await Post.findOne({ slug });
+    return NextResponse.json(post);
+  } catch (err) {
+    return NextResponse.json(err);
+  }
+}
+
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }

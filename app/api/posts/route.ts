@@ -4,7 +4,13 @@ import Post from '../../../models/Post';
 
 export async function GET(req: NextRequest) {
   await connectToDatabase();
-  return NextResponse.json('Hello World');
+
+  try {
+    const posts = await Post.find({});
+    return NextResponse.json(posts);
+  } catch (err) {
+    return NextResponse.json(err);
+  }
 }
 
 export async function POST(req: NextRequest) {

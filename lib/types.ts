@@ -12,7 +12,7 @@ export interface Admin {
 }
 
 export interface Post {
-  id: string;
+  _id: string;
   slug: string;
   title: string;
   metadata: {
