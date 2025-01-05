@@ -8,7 +8,7 @@ export function PostList() {
 
   useEffect(() => {
     async function getPosts() {
-      const response = await fetch('/api/posts');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`);
       const data = await response.json();
       setPosts(data);
     }

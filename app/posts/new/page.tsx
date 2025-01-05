@@ -1,10 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import TipTap from '../../../components/TipTap';
-
-// export default () => {
-//   return <TipTap  />;
-// }
+import { redirect } from 'next/navigation'
 
 const NewPostPage = () => {
   const [title, setTitle] = useState('');
@@ -13,13 +10,23 @@ const NewPostPage = () => {
   const [teaser, setTeaser] = useState('');
   const [categories, setCategories] = useState<Array<string>>(['']);
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const postData = { title, content, imgUrl, teaser, categories: categories.map((cat) => { 
       return { title: cat };
     }) };
     
-    // Handle form submission, e.g., send postData to an API
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postData),
+    })
+
+    if (res.ok) {
+      redirect('/')
+    }
   };
 
   const handleCategoryChange = (index: number, value: string) => {

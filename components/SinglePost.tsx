@@ -1,41 +1,26 @@
+'use client'
 import React from 'react';
 import Link from 'next/link';
 import ArrowLeft from './icons/ArrowLeft';
-// import { getPost, getRelatedPosts } from '../lib/cosmic';
-import SuggestedPostCard from './SuggestedPostCard';
 import Tag from './Tag';
 import AuthorAvatar from './AuthorAvatar';
 import AuthorAttribution from './AuthorAttribution';
 import parse from 'html-react-parser';
+import { useState, useEffect } from 'react';
+import { Post } from '../lib/types';
 
 export function SinglePost({ slug }: { slug: string }) {
-  // make sure to use useEffect here
+  const [post, setPost] = useState<Post>();
 
-  // const post = await getPost(slug);
-  // const suggestedPosts = await getRelatedPosts(slug);
-  const post = {
-    _id: "1",
-    slug: "example-post",
-    title: "Example Post Title",
-    published_date: "2023-10-01",
-    content: "<p>This is the content of the example post.</p>",
-    hero: {
-      img_url: "https://example.com/hero.jpg"
-    },
-    author: {
-      id: "author-1",
-      slug: "author-slug",
-      title: "Author Name",
-      image: {
-          img_url: "https://example.com/avatar.jpg"
-      }
-    },
-    teaser: "<p>This is an example teaser for the post.</p>",
-    categories: [
-      { title: "Category 1" },
-      { title: "Category 2" }
-    ]
-}
+  useEffect(()  => {
+    async function getPost() {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`);
+      const data = await res.json();
+      setPost(data);
+    }
+
+    getPost();
+  }, [slug])
   
   return (
     <>

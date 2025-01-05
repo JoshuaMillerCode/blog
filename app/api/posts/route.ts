@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     // Maybe plug in some AI things here
     const post = await Post.create(newPost);
 
-    return NextResponse.json(post);
+    return NextResponse.json(post, { status: 201 });
   } catch (err) {
     return NextResponse.json(err);
   }

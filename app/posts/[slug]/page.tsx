@@ -9,15 +9,22 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
 
-  // const post = await fetch('/api/posts/' + slug).then((res) => res.json());
+  // console.log(slug)
+
+  // const post = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/` + slug).then((res) => res.json());
+
+  // return {
+  //   title: `${post.title} | YourAverageDev`,
+  // };
 
   return {
-    title: `Your Average Developer Blog`,
+    title: `YourAverageDev Blog`,
   };
 }
 
 export default async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params;
+  console.log(slug)
   return (
     <Suspense fallback={<Loader />}>
       <SinglePost slug={slug} />;
