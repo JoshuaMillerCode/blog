@@ -19,12 +19,19 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const { title, content, imgUrl, teaser, categories } = body;
+    const newPost = {
+      ...body,
+      slug: body.title.toLowerCase().replace(/ /g, '-'),
+      published_date: new Date().toISOString(),
+      hero: {
+        img_url: body.imgUrl,
+      },
+    };
 
-    // set slug and published_date here
+    delete newPost.imgUrl;
 
     // Maybe plug in some AI things here
-    const post = await Post.create(body);
+    const post = await Post.create(newPost);
 
     return NextResponse.json(post);
   } catch (err) {

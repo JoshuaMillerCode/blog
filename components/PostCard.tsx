@@ -10,11 +10,11 @@ import parse from 'html-react-parser';
 export default function PostCard({ post }: { post: Post }) {
   return (
     <div>
-      {post.metadata.hero?.img_url && (
+      {post.hero?.img_url && (
         <Link href={`/posts/${post.slug}`}>
           <img
             className="mb-5 h-[400px] w-full rounded-xl bg-no-repeat object-cover object-center transition-transform duration-200 ease-out hover:scale-[1.02]"
-            src={`${post.metadata.hero?.img_url}?w=1400&auto=compression,format`}
+            src={`${post.hero?.img_url}?w=1400&auto=compression,format`}
             alt={post.title}
           />
         </Link>
@@ -28,16 +28,15 @@ export default function PostCard({ post }: { post: Post }) {
           <AuthorAttribution post={post} />
         </div>
         <div className="flex select-none justify-start space-x-2 md:hidden md:justify-end">
-          {post.metadata.categories &&
-            post.metadata.categories.map((category) => (
+          {post.categories &&
+            post.categories.map((category) => (
               <Tag key={category.title}>{category.title}</Tag>
             ))}
         </div>
       </div>
       <div
         className="py-6 text-zinc-500 dark:text-zinc-300"
-        
-      >{parse(post.metadata.teaser)}</div>
+      >{parse(post.teaser)}</div>
       <div className="flex items-center justify-between font-medium text-green-600 dark:text-green-200">
         <Link href={`/posts/${post.slug}`}>
           <div className="flex items-center space-x-2">
@@ -46,8 +45,8 @@ export default function PostCard({ post }: { post: Post }) {
           </div>
         </Link>
         <div className="hidden select-none justify-end space-x-2 md:flex ">
-          {post.metadata.categories &&
-            post.metadata.categories.map((category) => (
+          {post.categories &&
+            post.categories.map((category) => (
               <Tag key={category.title}>{category.title}</Tag>
             ))}
         </div>
