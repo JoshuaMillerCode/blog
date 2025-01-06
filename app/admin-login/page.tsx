@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { storeJWT } from '../../lib/auth';
 import { useContext } from 'react';
-import { AuthContext } from '../layout';
+import { AuthContext } from '../../lib/AuthContext';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');

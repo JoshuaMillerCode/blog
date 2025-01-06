@@ -4,14 +4,12 @@ import '../styles/globals.css';
 import Generator from 'next/font/local';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { createContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { decodeToken } from '../lib/auth';
 import { Admin } from '../lib/types';
 import { useRouter } from 'next/navigation';
+import { AuthContext } from '../lib/AuthContext';
 
-
-//Auth User Context
-export const AuthContext = createContext<any>({});
 
 const sans = Generator({
   src: '../fonts/Generator-Variable.ttf',

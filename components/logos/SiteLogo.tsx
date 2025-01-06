@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import OBMLogo from './OBMLogo';
 import { logout } from '../../lib/auth';
-import { AuthContext } from '../../app/layout';
+import { AuthContext } from '../../lib/AuthContext';
 import { useContext } from 'react';
 import { Admin } from '../../lib/types';
 

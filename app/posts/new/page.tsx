@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import TipTap from '../../../components/TipTap';
 import { useContext } from 'react';
-import { AuthContext } from '../../../app/layout';
+import { AuthContext } from '../../../lib/AuthContext';
 import { useRouter } from 'next/navigation';
 
 async function imgurUpload(img: File) {

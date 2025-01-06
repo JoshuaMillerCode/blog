@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import { Post } from '../lib/types';
 import SinglePostSkeleton from './SinglePostSkeleton';
 import { useContext } from 'react';
-import { AuthContext } from '../app/layout';
+import { AuthContext } from '../lib/AuthContext';
 import { useRouter } from 'next/navigation';
 
 
