@@ -8,19 +8,26 @@ import AuthorAttribution from './AuthorAttribution';
 import parse from 'html-react-parser';
 import { useState, useEffect } from 'react';
 import { Post } from '../lib/types';
+import SinglePostSkeleton from './SinglePostSkeleton';
 
 export function SinglePost({ slug }: { slug: string }) {
   const [post, setPost] = useState<Post>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(()  => {
     async function getPost() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`);
       const data = await res.json();
       setPost(data);
+      setLoading(false);
     }
 
     getPost();
   }, [slug])
+
+  if (loading) {
+    return <SinglePostSkeleton/>
+  }
   
   return (
     <>
