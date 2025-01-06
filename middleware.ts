@@ -6,7 +6,7 @@ const PROTECTED_METHODS = ['POST', 'PUT', 'DELETE'];
 export async function middleware(req: NextRequest) {
   console.log('method:', req.method);
   // Check if the request method is POST
-  if (PROTECTED_METHODS.includes(req.method) || req.url.includes('new')) {
+  if (PROTECTED_METHODS.includes(req.method)) {
     const authHeader = req.headers.get('Authorization');
 
     if (!authHeader) {

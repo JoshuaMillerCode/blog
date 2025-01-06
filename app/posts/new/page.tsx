@@ -1,9 +1,9 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TipTap from '../../../components/TipTap';
 import { redirect } from 'next/navigation'
-// import { useContext } from 'react';
-// import { AuthContext } from '../../layout';
+import { useContext } from 'react';
+import { AuthContext } from '../../../app/layout';
 
 const NewPostPage = () => {
   const [title, setTitle] = useState('');
@@ -12,7 +12,14 @@ const NewPostPage = () => {
   const [teaser, setTeaser] = useState('');
   const [categories, setCategories] = useState<Array<string>>(['']);
 
-  // const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    // restrict page from reg users
+    if (!user) {
+      redirect('/');
+    }
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();

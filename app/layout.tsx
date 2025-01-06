@@ -24,7 +24,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [user, setUser] = useState<Admin | null>(null);
-  // const [codeinput, setCodeInput] = useState('');
   const code = 'theonering'
   let input = ''
   const router = useRouter();
