@@ -24,8 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [user, setUser] = useState<Admin | null>(null);
-  const [codeinput, setCodeInput] = useState('');
+  // const [codeinput, setCodeInput] = useState('');
   const code = 'theonering'
+  let input = ''
   const router = useRouter();
 
   useEffect(() => {
@@ -36,11 +37,13 @@ export default function RootLayout({
     }
   }, []);
 
+  // fun easter egg
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      setCodeInput((prev) => prev + event.key);
-      
-      if (codeinput.includes(code)) {
+      input += event.key;
+
+      if (input.includes(code)) {
+        console.log('code entered');
         router.push('/admin-login');
       }
     };
