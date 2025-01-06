@@ -8,7 +8,7 @@ const PROTECTED_METHODS = ['POST', 'PUT', 'DELETE'];
 export async function middleware(req: NextRequest) {
   console.log('method:', req.method);
   // Check if the request method is POST
-  if (PROTECTED_METHODS.includes(req.method)) {
+  if (PROTECTED_METHODS.includes(req.method) || req.url.includes('new')) {
     const authHeader = req.headers.get('Authorization');
 
     if (!authHeader) {
@@ -37,5 +37,5 @@ export async function middleware(req: NextRequest) {
 
 // Protected routes
 export const config = {
-  matcher: ['/api/posts/:path*'], // Apply middleware to the /api/posts route
+  matcher: ['/api/posts/:path*', '/posts/new/:path*'], // Apply middleware to the /api/posts route
 };
