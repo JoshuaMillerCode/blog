@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import TipTap from '../../../components/TipTap';
 import { redirect } from 'next/navigation'
+// import { useContext } from 'react';
+// import { AuthContext } from '../../layout';
 
 const NewPostPage = () => {
   const [title, setTitle] = useState('');
@@ -9,6 +11,8 @@ const NewPostPage = () => {
   const [imgUrl, setImgUrl] = useState('');
   const [teaser, setTeaser] = useState('');
   const [categories, setCategories] = useState<Array<string>>(['']);
+
+  // const { user } = useContext(AuthContext)
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -20,6 +24,7 @@ const NewPostPage = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify(postData),
     })

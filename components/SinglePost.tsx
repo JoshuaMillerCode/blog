@@ -9,10 +9,18 @@ import parse from 'html-react-parser';
 import { useState, useEffect } from 'react';
 import { Post } from '../lib/types';
 import SinglePostSkeleton from './SinglePostSkeleton';
+import { useContext } from 'react';
+import { AuthContext } from '../app/layout';
+import { useRouter } from 'next/navigation';
+
+
 
 export function SinglePost({ slug }: { slug: string }) {
   const [post, setPost] = useState<Post>();
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(AuthContext);
+  const router = useRouter();
+
 
   useEffect(()  => {
     async function getPost() {
@@ -24,6 +32,24 @@ export function SinglePost({ slug }: { slug: string }) {
 
     getPost();
   }, [slug])
+
+  async function handleDelete() {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (res.ok) {
+        router.push('/');
+      }
+    } catch(err) {
+      console.error(err);
+    }
+  }
 
   if (loading) {
     return <SinglePostSkeleton/>
@@ -53,7 +79,7 @@ export function SinglePost({ slug }: { slug: string }) {
           <div className="mr-20 flex w-full max-w-3xl flex-col justify-start md:w-3/4">
             <h2>
               {!post && <div className="text-center">Post Not found</div>}
-              {post && <Link href={`/posts/${post.slug}`}>{post.title}</Link>}
+              {post && post.title}
             </h2>
             {post && (
               <>
@@ -69,6 +95,17 @@ export function SinglePost({ slug }: { slug: string }) {
                       ))}
                   </div>
                 </div>
+                {
+                  user 
+                  && 
+                  <button
+                    className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mb-1"
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </button>
+                }
+                
                 <hr className="w-full border-t border-zinc-300 pb-8 dark:border-zinc-700" />
                 <div className='text-zinc-500'>{parse(post.content)}</div>
               </>

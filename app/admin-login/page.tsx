@@ -1,18 +1,22 @@
 'use client'
 import { useState } from 'react';
 import { redirect } from 'next/navigation';
+import { storeJWT } from '../../lib/auth';
+import { useContext } from 'react';
+import { AuthContext } from '../layout';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { setUser } = useContext(AuthContext);
   
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError('');
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -21,8 +25,11 @@ export default function AdminLogin() {
     });
 
     if (res.ok) {
-      console.log(await res.json())
-      // redirect('/posts/new');
+      const { token, user } = await res.json();
+      // store JWT token in local storage
+      storeJWT(token);
+      setUser({ user });
+      redirect('/posts/new');
     } else {
       const data = await res.json();
       setError(data.message || 'Login failed');

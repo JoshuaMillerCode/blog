@@ -9,12 +9,11 @@ export default function AuthorAttribution({
   return (
     <div className="flex space-x-1">
       <span>by</span>
-      <a
-        href={`/author/${post.author?.slug}`}
+      <p
         className="font-medium text-green-600 dark:text-green-200"
       >
         {post.author?.title}
-      </a>
+      </p>
       <span>
         on {helpers.stringToFriendlyDate(post.published_date)}
       </span>
