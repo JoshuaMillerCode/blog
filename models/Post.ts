@@ -13,7 +13,7 @@ const postSchema = new Schema({
     title: { type: String, default: 'YourAverageDev' },
     image: {
       // put default img here
-      img_url: { type: String },
+      img_url: { type: String, default: 'https://i.imgur.com/qM0Eh2B.jpeg' },
     },
   },
   teaser: { type: String, required: true },

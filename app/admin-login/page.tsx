@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { storeJWT } from '../../lib/auth';
 import { useContext } from 'react';
 import { AuthContext } from '../layout';
@@ -10,6 +10,7 @@ export default function AdminLogin() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { setUser } = useContext(AuthContext);
+  const router = useRouter();
   
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -29,7 +30,7 @@ export default function AdminLogin() {
       // store JWT token in local storage
       storeJWT(token);
       setUser({ user });
-      redirect('/posts/new');
+      router.push('/posts/new');
     } else {
       const data = await res.json();
       setError(data.message || 'Login failed');

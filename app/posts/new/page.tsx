@@ -1,28 +1,67 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import TipTap from '../../../components/TipTap';
-import { redirect } from 'next/navigation'
 import { useContext } from 'react';
 import { AuthContext } from '../../../app/layout';
+import { useRouter } from 'next/navigation';
+
+async function imgurUpload(img: File) {
+  try {
+    const formdata = new FormData();
+    formdata.append('image', img, img.name);
+    formdata.append('type', 'file');
+    formdata.append('title', 'Blog Image');
+    formdata.append('description', 'Image for blog post.');
+
+    const res = await fetch('https://api.imgur.com/3/image', {
+      method: 'POST',
+      headers: {
+        Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`,
+      },
+      body: formdata,
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      return data.data.link;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 const NewPostPage = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [imgUrl, setImgUrl] = useState('');
+  const [img, setImg] = useState<File | null>(null);
   const [teaser, setTeaser] = useState('');
   const [categories, setCategories] = useState<Array<string>>(['']);
 
   const { user } = useContext(AuthContext);
 
+  const router = useRouter();
+
   useEffect(() => {
     // restrict page from reg users
     if (!user) {
-      redirect('/');
+      router.push('/');
     }
   }, []);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    let imgUrl = '';
+
+    try {
+      if (img) {
+        imgUrl = await imgurUpload(img);
+        console.log(imgUrl);
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
     const postData = { title, content, imgUrl, teaser, categories: categories.map((cat) => { 
       return { title: cat };
     }) };
@@ -37,7 +76,7 @@ const NewPostPage = () => {
     })
 
     if (res.ok) {
-      redirect('/')
+      router.push('/')
     }
   };
 
@@ -54,6 +93,12 @@ const NewPostPage = () => {
   const removeCategory = (index: number) => {
     const newCategories = categories.filter((_, i) => i !== index);
     setCategories(newCategories);
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setImg(event.target.files[0]);
+    }
   };
 
   return (
@@ -90,7 +135,7 @@ const NewPostPage = () => {
         {/* This will eventually be reaplaced with a media input that will be sent to the server to upload to the Imgur API */}
         {/* !!!!!!!!!!!!!!!!!!!!!!!!! */}
 
-        <div>
+        {/* <div>
           <label htmlFor="imgUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Image URL
           </label>
@@ -102,7 +147,18 @@ const NewPostPage = () => {
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           />
+        </div> */}
+        <div>
+          <label htmlFor="imgUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Image
+          </label>
+          <input 
+            type="file" 
+            onChange={handleFileChange}
+            className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white' 
+          />
         </div>
+
         <div>
           <label htmlFor="teaser" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Teaser

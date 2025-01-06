@@ -44,6 +44,7 @@ export default function RootLayout({
       if (input.includes(code)) {
         console.log('code entered');
         router.push('/admin-login');
+        input = '';
       }
     };
 
