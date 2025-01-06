@@ -1,5 +1,5 @@
 import { SinglePost } from '../../../components/SinglePost';
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import SinglePostSkeleton from '../../../components/SinglePostSkeleton';
 export async function generateMetadata({
   params,

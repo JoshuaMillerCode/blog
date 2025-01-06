@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import { createContext, useState, useEffect } from 'react';
 import { decodeToken } from '../lib/auth';
 import { Admin } from '../lib/types';
+import { useRouter } from 'next/navigation';
 
 
 //Auth User Context
@@ -23,6 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [user, setUser] = useState<Admin | null>(null);
+  const [codeinput, setCodeInput] = useState('');
+  const code = 'theonering'
+  const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -31,6 +35,23 @@ export default function RootLayout({
       setUser(decodedUser);
     }
   }, []);
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      setCodeInput((prev) => prev + event.key);
+      
+      if (codeinput.includes(code)) {
+        router.push('/admin-login');
+      }
+    };
+
+    window.addEventListener('keypress', handleKeyPress);
+
+    return () => {
+      window.removeEventListener('keypress', handleKeyPress);
+    };
+  }, []);
+
 
   return (
     <html lang="en" className={`${sans.variable} font-sans`}>
