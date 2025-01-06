@@ -1,26 +1,12 @@
+'use client'
 import { SinglePost } from '../../../components/SinglePost';
 import React, { Suspense } from 'react';
 import SinglePostSkeleton from '../../../components/SinglePostSkeleton';
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = await params;
+import { useParams } from 'next/navigation'
 
-  // const post = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/` + slug).then((res) => res.json());
 
-  // return {
-  //   title: `${post.title} | YourAverageDev`,
-  // };
-
-  return {
-    title: `YourAverageDev Blog`,
-  };
-}
-
-export default async ({ params }: { params: { slug: string } }) => {
-  const { slug } = await params;
+export default () => {
+  const { slug } = useParams<{ slug: string }>();
   console.log(slug)
   return (
     <Suspense fallback={<SinglePostSkeleton />}>
@@ -28,4 +14,4 @@ export default async ({ params }: { params: { slug: string } }) => {
     </Suspense>
   );
 };
-export const revalidate = 60;
+
