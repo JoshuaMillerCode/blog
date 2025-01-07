@@ -6,7 +6,7 @@ const postSchema = new Schema({
   published_date: { type: String, required: true },
   content: { type: String, required: true },
   hero: {
-    img_url: { type: String },
+    img_url: { type: String, default: 'https://i.imgur.com/nZdaBYq.png' },
   },
   author: {
     slug: { type: String, default: 'youravgdev' },
