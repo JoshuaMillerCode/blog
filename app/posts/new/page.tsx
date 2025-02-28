@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../../lib/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Editable, useEditor } from '@wysimark/react';
+// import { Editable, useEditor } from '@wysimark/react';
 import { imgurUpload } from '../../../lib/utils';
 
 
@@ -15,11 +15,11 @@ const NewPostPage = () => {
   const [teaser, setTeaser] = useState('');
   const [categories, setCategories] = useState<Array<string>>(['']);
   // Markdown
-  const [markdown, setMarkdown] = useState('# Let\'s write!')
-  const editor = useEditor({ 
-    authToken: process.env.WYSIMARK_AUTH_TOKEN,
-    height: '500px'
-  });
+  // const [markdown, setMarkdown] = useState('# Let\'s write!')
+  // const editor = useEditor({ 
+  //   authToken: process.env.WYSIMARK_AUTH_TOKEN,
+  //   height: '500px'
+  // });
 
   const { user } = useContext(AuthContext);
 
@@ -103,8 +103,8 @@ const NewPostPage = () => {
           />
         </div>
         {/* use react markdown to render */}
-        <Editable editor={editor} value={markdown} onChange={setMarkdown}/>
-{/*       
+        {/* <Editable editor={editor} value={markdown} onChange={setMarkdown}/> */}
+      
         <div>
           <label htmlFor="content" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Content
@@ -116,7 +116,7 @@ const NewPostPage = () => {
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           />
-        </div> */}
+        </div>
 {/*         
         !!!!!!!!!!!!!!!!!!!!!!!!! */}
         {/* This will eventually be reaplaced with a media input that will be sent to the server to upload to the Imgur API */}
