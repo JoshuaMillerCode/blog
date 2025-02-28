@@ -1,5 +1,6 @@
 'use client'
 import React from 'react';
+import Head from 'next/head';
 import '../styles/globals.css';
 import Generator from 'next/font/local';
 import Header from '../components/Header';
@@ -56,6 +57,9 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${sans.variable} font-sans`}>
+      <Head>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+      </Head>
       <body className="bg-white dark:bg-zinc-950">
         <AuthContext.Provider value={{user, setUser}}>
           <Header user={user} />
