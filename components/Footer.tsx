@@ -17,7 +17,7 @@ export default function Footer(): JSX.Element {
         </div> */}
       </a>
       <div className="text-zinc-700 dark:text-zinc-300">
-        &copy;&nbsp;&nbsp;{new Date().getFullYear()} Your Average Dev
+        &copy;&nbsp;{new Date().getFullYear()} Your Average Dev
       </div>
     </footer>
   );

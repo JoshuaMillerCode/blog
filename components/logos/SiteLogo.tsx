@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import OBMLogo from './OBMLogo';
+import DeskLogo from './DeskLogo';
 import { logout } from '../../lib/auth';
 import { AuthContext } from '../../lib/AuthContext';
 import { useContext } from 'react';
@@ -16,7 +16,7 @@ export default function SiteLogo({ user }: {user: Admin | null}): JSX.Element {
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-between px-4 py-4 md:flex-row lg:px-0">
       <h1 className="flex space-x-4">
-        <OBMLogo className="h-8 w-8" />
+        <DeskLogo className="h-8 w-8" />
         <Link
           href="/"
           className="bg-gradient-to-r from-cyan-700 to-teal-600 bg-clip-text text-3xl  font-bold  text-transparent dark:from-cyan-300 dark:to-teal-200"
