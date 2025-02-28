@@ -2,14 +2,22 @@ import React from 'react';
 import { PostList } from '../components/PostList';
 import PostCardSkeleton from '../components/PostCardSkeleton';
 import { Suspense } from 'react';
+import { CurrentReading } from '../components/CurrentReading';
 
 export default function Page() {
   return (
-    <main className="mx-auto mt-4 w-full max-w-3xl flex-col space-y-16 px-4 lg:px-0">
-      <Suspense fallback={<PostCardSkeleton />}>
-        <PostList />
-      </Suspense>
-    </main>
+    <div className="flex justify-center mt-4 w-full  px-4 lg:px-0">
+      <div className="flex justify-between gap-8">
+        <main className="w-full max-w-3xl flex-col space-y-16">
+          <Suspense fallback={<PostCardSkeleton />}>
+            <PostList />
+          </Suspense>
+        </main>
+        <aside className="hidden lg:block w-96">
+          <CurrentReading bookTitle="East of Eden" coverImage="/east_of_eden.jpeg" author="John Steinbeck" />
+        </aside>
+      </div>
+    </div>
   );
 }
 export const revalidate = 60;
