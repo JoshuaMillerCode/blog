@@ -22,11 +22,6 @@ const postSchema = new Schema({
       title: { type: String },
     },
   ],
-  comments: {
-    author: { type: String, required: true },
-    content: { type: String, required: true },
-    votes: { type: Number },
-  },
 });
 
 export default models.Post || model('Post', postSchema);
