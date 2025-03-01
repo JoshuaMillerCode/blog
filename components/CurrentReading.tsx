@@ -22,14 +22,10 @@ const books: Book[] = [
   },
 ]
 
-interface CurrentReadingProps {
-  bookTitle: string
-  coverImage: string
-  author?: string
-}
-
 export function CurrentReading() {
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  
 
   const nextBook = () => {
     setCurrentIndex((prev) => (prev + 1) % books.length)
