@@ -1,6 +1,6 @@
 const PostCardSkeleton = () => {
   return (
-    <div className="mb-8 p-4 border border-gray-700 rounded-lg shadow-sm dark:border-gray-600 animate-pulse">
+    <div className="w-[400px] md:w-[700px] mb-8 p-4 border border-gray-700 rounded-lg shadow-sm dark:border-gray-600 animate-pulse">
       <div className="mb-5 h-[400px] w-full bg-gray-600 rounded-xl dark:bg-gray-800"></div>
       <div className="pb-3 h-6 bg-gray-600 rounded dark:bg-gray-800 mb-1"></div>
       <div className="flex flex-col justify-between space-y-4 md:flex-row md:space-y-0 mb-1">
