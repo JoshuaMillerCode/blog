@@ -34,5 +34,10 @@ export async function middleware(req: NextRequest) {
 
 // Protected routes
 export const config = {
-  matcher: ['/api/posts/:path*', '/posts/new/:path*', '/api/books/:path*'],
+  matcher: [
+    '/api/posts/:path*',
+    '/posts/new/:path*',
+    '/api/books/:path*',
+    '/edit-books/',
+  ],
 };
