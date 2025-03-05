@@ -30,19 +30,18 @@ export default function Page() {
         {/* Overlay */}
         {isSidebarOpen && (
           <div 
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            className="fixed inset-0 bg-black bg-opacity-80 z-40 lg:hidden"
             onClick={() => setIsSidebarOpen(false)}
           />
         )}
 
         {/* Sidebar */}
         <aside className={`
-          fixed lg:static inset-y-0 right-0 w-96 transform transition-transform duration-300 ease-in-out z-50
+          fixed lg:static inset-y-10 right-0 w-96 transform transition-transform duration-300 ease-in-out z-50
           ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
         `}>
           <div className="h-full overflow-y-auto">
             <Reading reading={true} />
-            <Reading reading={false} />
           </div>
         </aside>
       </div>
