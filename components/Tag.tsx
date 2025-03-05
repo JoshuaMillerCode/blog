@@ -1,4 +1,5 @@
 import React from 'react';
+import { JSX } from 'react';
 
 export default function Tag({
   children,

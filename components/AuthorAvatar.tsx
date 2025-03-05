@@ -1,4 +1,5 @@
 import { Post } from '../lib/types';
+import { JSX } from 'react';
 
 export default function AuthorAvatar({ post }: { post: Post }): JSX.Element {
   return (

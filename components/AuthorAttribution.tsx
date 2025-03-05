@@ -1,5 +1,6 @@
 import { Post } from '../lib/types';
 import helpers from '../helpers';
+import { JSX } from 'react';
 
 export default function AuthorAttribution({
   post,

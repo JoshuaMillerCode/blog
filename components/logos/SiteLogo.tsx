@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { Admin } from '../../lib/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { JSX } from 'react';
 
 
 export default function SiteLogo({ user }: {user: Admin | null}): JSX.Element {

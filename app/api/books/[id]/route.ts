@@ -2,10 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectToDatabase from '../../../../lib/mongodb';
 import Book from '../../../../models/Book';
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+type tParams = Promise<{ id: string }>;
+
+export async function GET(req: NextRequest, { params }: { params: tParams }) {
   await connectToDatabase();
 
   const { id } = await params;
@@ -21,10 +20,7 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(req: NextRequest, { params }: { params: tParams }) {
   await connectToDatabase();
 
   const { id } = await params;
@@ -46,7 +42,7 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: tParams }
 ) {
   await connectToDatabase();
 
