@@ -60,7 +60,7 @@ export default function RootLayout({
       <Head>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
       </Head>
-      <body className="bg-white dark:bg-zinc-950">
+      <body className="bg-zinc-950">
         <AuthContext.Provider value={{user, setUser}}>
           <Header user={user} />
           {children}
