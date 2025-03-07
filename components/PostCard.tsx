@@ -19,7 +19,7 @@ export default function PostCard({ post }: { post: Post }) {
           />
         </Link>
       )}
-      <h2 className="pb-3 text-xl font-semibold tracking-tight text-zinc-800 dark:text-zinc-200">
+      <h2 className="pb-3 text-xl font-semibold tracking-tight text-zinc-200">
         <Link href={`/posts/${post.slug}`}>{post.title}</Link>
       </h2>
       <div className="flex flex-col justify-between space-y-4 md:flex-row md:space-y-0">
