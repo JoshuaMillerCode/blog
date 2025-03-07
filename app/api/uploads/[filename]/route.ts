@@ -2,12 +2,11 @@ import { NextResponse, NextRequest } from 'next/server';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { filename: string } }
-) {
+type tParams = Promise<{ filename: string }>;
+
+export async function GET(req: NextRequest, { params }: { params: tParams }) {
   try {
-    const { filename } = params;
+    const { filename } = await params;
 
     const file = await readFile(join(process.cwd(), 'uploads', filename));
     const extension = filename.split('.').pop();
