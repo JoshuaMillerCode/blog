@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import { AuthContext } from '../../../lib/AuthContext';
 import { useRouter } from 'next/navigation';
 // import { Editable, useEditor } from '@wysimark/react';
-import { imgurUpload } from '../../../lib/utils';
 
 
 
@@ -12,8 +11,10 @@ const NewPostPage = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [img, setImg] = useState<File | null>(null);
+  const [imgUrl, setImgUrl] = useState('');
   const [teaser, setTeaser] = useState('');
   const [categories, setCategories] = useState<Array<string>>(['']);
+  const [uploading, setUploading] = useState(false);
   // Markdown
   // const [markdown, setMarkdown] = useState('# Let\'s write!')
   // const editor = useEditor({ 
@@ -35,20 +36,15 @@ const NewPostPage = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    let imgUrl = '';
-
-    try {
-      if (img) {
-        imgUrl = await imgurUpload(img);
-        console.log(imgUrl);
-      }
-    } catch (err) {
-      console.log(err)
-    }
-
-    const postData = { title, content, imgUrl, teaser, categories: categories.map((cat) => { 
-      return { title: cat };
-    }) };
+    const postData = { 
+      title, 
+      content, 
+      imgUrl: imgUrl, 
+      teaser, 
+      categories: categories.map((cat) => { 
+        return { title: cat };
+      }) 
+    };
     
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       method: 'POST',
@@ -57,10 +53,10 @@ const NewPostPage = () => {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify(postData),
-    })
+    });
 
     if (res.ok) {
-      router.push('/')
+      router.push('/');
     }
   };
 
@@ -79,9 +75,32 @@ const NewPostPage = () => {
     setCategories(newCategories);
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setImg(event.target.files[0]);
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setImg(file);
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: formData
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setImgUrl(data.url);
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -117,33 +136,46 @@ const NewPostPage = () => {
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           />
         </div>
-{/*         
-        !!!!!!!!!!!!!!!!!!!!!!!!! */}
-        {/* This will eventually be reaplaced with a media input that will be sent to the server to upload to the Imgur API */}
-        {/* !!!!!!!!!!!!!!!!!!!!!!!!! */}
 
-        {/* <div>
-          <label htmlFor="imgUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Image URL
-          </label>
-          <input
-            id="imgUrl"
-            type="text"
-            value={imgUrl}
-            onChange={(e) => setImgUrl(e.target.value)}
-            required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          />
-        </div> */}
         <div>
           <label htmlFor="imgUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Image
           </label>
-          <input 
-            type="file" 
-            onChange={handleFileChange}
-            className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white' 
-          />
+          <div className="mt-1 flex items-center gap-4">
+            <input
+              type="text"
+              id="imgUrl"
+              value={imgUrl}
+              onChange={(e) => setImgUrl(e.target.value)}
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            />
+            <div className="relative">
+              <input
+                type="file"
+                id="image-upload"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+              <label
+                htmlFor="image-upload"
+                className={`px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 cursor-pointer ${
+                  uploading ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+              >
+                {uploading ? 'Uploading...' : 'Upload'}
+              </label>
+            </div>
+          </div>
+          {imgUrl && (
+            <div className="mt-2">
+              <img
+                src={imgUrl}
+                alt="Preview"
+                className="max-h-40 rounded-md object-contain"
+              />
+            </div>
+          )}
         </div>
 
         <div>

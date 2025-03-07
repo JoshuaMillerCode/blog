@@ -98,16 +98,24 @@ export function SinglePost({ slug }: { slug: string }) {
                 {
                   user 
                   && 
-                  <button
-                    className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mb-1"
-                    onClick={handleDelete}
-                  >
-                    Delete
-                  </button>
+                  <div className="flex gap-2 mb-1">
+                    <Link
+                      href={`/posts/edit/${slug}`}
+                      className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                      onClick={handleDelete}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 }
                 
                 <hr className="w-full border-t border-zinc-300 pb-8 dark:border-zinc-700" />
-                <div className='text-zinc-500'>{parse(post.content)}</div>
+                <div className='text-zinc-500' data-post="yes">{parse(post.content)}</div>
               </>
             )}
             {/* <div className="mx-auto mt-8 w-full">

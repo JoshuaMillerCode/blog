@@ -14,6 +14,8 @@ export function PostList() {
       const data = await response.json();
       setPosts(data);
 
+      console.log(data.reverse())
+
       setLoading(false);
     }
 

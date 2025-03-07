@@ -39,5 +39,7 @@ export const config = {
     '/posts/new/:path*',
     '/api/books/:path*',
     '/edit-books/',
+    '/api/upload',
+    '/api/uploads/:path*',
   ],
 };

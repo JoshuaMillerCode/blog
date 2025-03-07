@@ -42,10 +42,10 @@ export default function Page() {
         `}>
           <div className="h-full overflow-y-auto">
             <Reading reading={true} />
+            <Reading reading={false} />
           </div>
         </aside>
       </div>
     </div>
   );
 }
-// export const revalidate = 60;

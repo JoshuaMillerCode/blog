@@ -2,7 +2,9 @@
 
 const nextConfig = {
   experimental: {
-    // ppr: 'incremental',
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
   },
   images: {
     remotePatterns: [

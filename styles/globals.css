@@ -15,3 +15,42 @@
     @apply pb-4 leading-relaxed tracking-normal text-zinc-600 last-of-type:pb-0 dark:text-zinc-400;
   }
 }
+
+[data-post="yes"] pre {
+  background: #44475a;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+  color: #f8f8f2;
+  margin-bottom: 2em;
+}
+
+[data-post="yes"] img {
+  max-width: 100%;
+  display: block;
+  margin: 10px 0;
+}
+[data-post="yes"] .screenshot {
+  border: 1px solid #8be9fd;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+[data-post="yes"] ul {
+  list-style-type: disc;
+  margin-left: 2em;
+  margin-bottom: 2em;
+}
+
+[data-post="yes"] p, [data-post="yes"] li {
+  color: #f8f8f2;
+}
+
+[data-post="yes"] h2 {
+  color: #8be8fd;
+  text-decoration: underline;
+}
+
+[data-post="yes"] h3 {
+  text-decoration: underline dotted;
+}

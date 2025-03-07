@@ -22,3 +22,18 @@ export async function imgurUpload(img: File) {
     console.log(err);
   }
 }
+
+export async function uploadImage(file: File) {
+  const formdata = new FormData();
+  formdata.append('file', file, file.name);
+
+  const res = await fetch('/api/upload', {
+    method: 'POST',
+    body: formdata,
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    return data.url;
+  }
+}

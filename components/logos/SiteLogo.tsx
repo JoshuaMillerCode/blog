@@ -43,6 +43,9 @@ export default function SiteLogo({ user }: {user: Admin | null}): JSX.Element {
             <Link href="/edit-books">
               Books
             </Link>
+            <Link href="/upload">
+              Upload
+            </Link>
             {"  "}
             <Link href="/" onClick={handleLogout}>
               Logout

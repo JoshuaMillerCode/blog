@@ -23,6 +23,7 @@ export default function EditBooks() {
   });
   const { user } = useContext(AuthContext);
   const router = useRouter();
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -94,6 +95,37 @@ export default function EditBooks() {
     }
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: formData
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setFormData(prevData => ({
+          ...prevData,
+          coverImage: data.url
+        }));
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
   return (
     <div className="max-w-2xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6 text-slate-200">Manage Books</h1>
@@ -129,16 +161,44 @@ export default function EditBooks() {
 
         <div>
           <label htmlFor="coverImage" className="block text-sm font-medium text-slate-200">
-            Cover Image URL
+            Cover Image
           </label>
-          <input
-            id="coverImage"
-            type="text"
-            value={formData.coverImage}
-            onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
-            required
-            className="mt-1 block w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-200"
-          />
+          <div className="mt-1 flex items-center gap-4">
+            <input
+              type="text"
+              id="coverImage"
+              value={formData.coverImage}
+              onChange={(e) => setFormData(prevData => ({ ...prevData, coverImage: e.target.value }))}
+              required
+              className="flex-1 px-3 py-2 bg-slate-800 border border-slate-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-200"
+            />
+            <div className="relative">
+              <input
+                type="file"
+                id="image-upload"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+              <label
+                htmlFor="image-upload"
+                className={`px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 cursor-pointer ${
+                  uploading ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+              >
+                {uploading ? 'Uploading...' : 'Upload'}
+              </label>
+            </div>
+          </div>
+          {formData.coverImage && (
+            <div className="mt-2">
+              <img
+                src={formData.coverImage}
+                alt="Cover preview"
+                className="max-h-40 rounded-md object-contain"
+              />
+            </div>
+          )}
         </div>
 
         <div className="flex items-center">
@@ -213,3 +273,4 @@ export default function EditBooks() {
     </div>
   );
 }
+
