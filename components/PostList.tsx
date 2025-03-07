@@ -12,9 +12,7 @@ export function PostList() {
     async function getPosts() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`);
       const data = await response.json();
-      setPosts(data);
-
-      console.log(data.reverse())
+      setPosts(data.reverse());
 
       setLoading(false);
     }
@@ -34,7 +32,7 @@ export function PostList() {
 
       {!posts && 'No Posts'}
       {posts && !loading &&
-        posts.reverse().map((post) => {
+        posts.map((post) => {
           return (
             <div key={post._id}>
               <PostCard post={post} />
