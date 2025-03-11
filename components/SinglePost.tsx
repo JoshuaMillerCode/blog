@@ -12,6 +12,8 @@ import SinglePostSkeleton from './SinglePostSkeleton';
 import { useContext } from 'react';
 import { AuthContext } from '../lib/AuthContext';
 import { useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp } from '@fortawesome/free-regular-svg-icons'
 
 
 
@@ -88,12 +90,19 @@ export function SinglePost({ slug }: { slug: string }) {
                     <AuthorAvatar post={post} />
                     <AuthorAttribution post={post} />
                   </div>
+                  
                   <div className="flex select-none justify-start space-x-2 md:justify-end">
                     {post.categories &&
                       post.categories.map((category) => (
                         <Tag key={category.title}>{category.title}</Tag>
                       ))}
                   </div>
+                  
+                </div>
+                <div className="flex gap-6 justify-end mb-4">
+                  <FontAwesomeIcon icon={faThumbsUp} className="text-white" size="2xl" />
+                  {/* Number of likes here */}
+                  {/* Eventually a link to the comments button will go here */}
                 </div>
                 {
                   user 
@@ -113,7 +122,6 @@ export function SinglePost({ slug }: { slug: string }) {
                     </button>
                   </div>
                 }
-                
                 <hr className="w-full border-t border-zinc-300 pb-8 dark:border-zinc-700" />
                 <div className='text-zinc-500' data-post="yes">{parse(post.content)}</div>
               </>
