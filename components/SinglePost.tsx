@@ -14,26 +14,30 @@ import { AuthContext } from '../lib/AuthContext';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons'
-
-
+import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons';
 
 export function SinglePost({ slug }: { slug: string }) {
   const [post, setPost] = useState<Post>();
   const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const router = useRouter();
+  const [liked, setLiked] = useState(false);
 
-
-  useEffect(()  => {
+  useEffect(() => {
     async function getPost() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`);
       const data = await res.json();
       setPost(data);
+      
+      // Check if this post has been liked before
+      const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+      setLiked(likedPosts.includes(slug));
+      
       setLoading(false);
     }
 
     getPost();
-  }, [slug])
+  }, [slug]);
 
   async function handleDelete() {
     try {
@@ -47,6 +51,45 @@ export function SinglePost({ slug }: { slug: string }) {
 
       if (res.ok) {
         router.push('/');
+      }
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
+  async function handleLike() {
+    try {
+      if (!post) return;
+      
+      // Get current liked posts from localStorage
+      const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+      
+      // Update the likes count
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}/like`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          likes: liked ? post.likes - 1 : post.likes + 1
+        })
+      });
+      
+      const postData = await res.json();
+
+      if (res.ok) {
+        setPost(postData);
+        setLiked(!liked);
+        
+        // Update localStorage
+        if (!liked) {
+          // Add to liked posts
+          localStorage.setItem('likedPosts', JSON.stringify([...likedPosts, slug]));
+        } else {
+          // Remove from liked posts
+          localStorage.setItem('likedPosts', JSON.stringify(likedPosts.filter((s: string) => s !== slug)));
+        }
       }
     } catch(err) {
       console.error(err);
@@ -97,16 +140,18 @@ export function SinglePost({ slug }: { slug: string }) {
                         <Tag key={category.title}>{category.title}</Tag>
                       ))}
                   </div>
-                  
                 </div>
-                <div className="flex gap-6 justify-end mb-4">
-                  <FontAwesomeIcon icon={faThumbsUp} className="text-white" size="2xl" />
-                  {/* Number of likes here */}
-                  {/* Eventually a link to the comments button will go here */}
+                <div className="flex gap-6 justify-end align-center mb-4 ">
+                  <FontAwesomeIcon 
+                    icon={liked ? faThumbsUpSolid : faThumbsUp} 
+                    className="text-white hover:cursor-pointer active:text-blue-500 active:scale-110" 
+                    size="2xl" 
+                    onClick={handleLike} 
+                  />
+                  <p className="text-white text-3xl">{post.likes}</p>
                 </div>
                 {
-                  user 
-                  && 
+                  user && 
                   <div className="flex gap-2 mb-1">
                     <Link
                       href={`/posts/edit/${slug}`}
@@ -126,24 +171,6 @@ export function SinglePost({ slug }: { slug: string }) {
                 <div className='text-zinc-500' data-post="yes">{parse(post.content)}</div>
               </>
             )}
-            {/* <div className="mx-auto mt-8 w-full">
-              <hr className="w-full border-t border-zinc-300 pb-8 dark:border-zinc-700" />
-              {suggestedPosts && (
-                <div className="flex w-full flex-col">
-                  <h3 className="pb-3 text-xl font-semibold text-zinc-800 dark:text-zinc-200">
-                    Suggested Posts
-                  </h3>
-                  <div className="flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-4 md:space-y-0">
-                    {suggestedPosts
-                      // .filter((nextPost) => nextPost?.id !== post?.id)
-                      .slice(0, 2)
-                      .map((post) => {
-                        return <SuggestedPostCard key={post.id} post={post} />;
-                      })}
-                  </div>
-                </div>
-              )}
-            </div> */}
           </div>
         </div>
       </main>
