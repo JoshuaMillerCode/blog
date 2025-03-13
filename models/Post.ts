@@ -24,7 +24,6 @@ const postSchema = new Schema(
       },
     ],
     likes: { type: Number, default: 0 },
-    likedBy: [{ type: String }], // Array of user IDs who have liked the post
   },
   {
     timestamps: true,
