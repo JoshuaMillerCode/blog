@@ -66,10 +66,9 @@ export function SinglePost({ slug }: { slug: string }) {
       
       // Update the likes count
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}/like`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({
           likes: liked ? post.likes - 1 : post.likes + 1

@@ -7,7 +7,6 @@ import { useParams } from 'next/navigation'
 
 export default () => {
   const { slug } = useParams<{ slug: string }>();
-  console.log(slug)
   return (
     <Suspense fallback={<SinglePostSkeleton />}>
       <SinglePost slug={slug} />;
