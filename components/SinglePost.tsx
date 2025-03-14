@@ -12,9 +12,8 @@ import SinglePostSkeleton from './SinglePostSkeleton';
 import { useContext } from 'react';
 import { AuthContext } from '../lib/AuthContext';
 import { useRouter } from 'next/navigation';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp } from '@fortawesome/free-regular-svg-icons'
-import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons';
+import ThumbsUp from './ThumbsUp';
+
 
 export function SinglePost({ slug }: { slug: string }) {
   const [post, setPost] = useState<Post>();
@@ -141,13 +140,7 @@ export function SinglePost({ slug }: { slug: string }) {
                   </div>
                 </div>
                 <div className="flex gap-6 justify-end align-center mb-4 ">
-                  <FontAwesomeIcon 
-                    icon={liked ? faThumbsUpSolid : faThumbsUp} 
-                    className="text-white hover:cursor-pointer active:text-blue-500 active:scale-110" 
-                    size="2xl" 
-                    onClick={handleLike} 
-                  />
-                  <p className="text-white text-3xl">{post.likes}</p>
+                  <ThumbsUp post={post} liked={liked} handleLike={handleLike} />
                 </div>
                 {
                   user && 
@@ -168,6 +161,9 @@ export function SinglePost({ slug }: { slug: string }) {
                 }
                 <hr className="w-full border-t border-zinc-300 pb-8 dark:border-zinc-700" />
                 <div className='text-zinc-500' data-post="yes">{parse(post.content)}</div>
+                <div className="flex gap-6 justify-end align-center mb-4 ">
+                  <ThumbsUp post={post} liked={liked} handleLike={handleLike} />
+                </div>
               </>
             )}
           </div>
