@@ -31,4 +31,5 @@ export interface Post {
   categories: {
     title: string;
   }[];
+  likes: number;
 }

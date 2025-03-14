@@ -5,6 +5,12 @@ const PROTECTED_METHODS = ['POST', 'PUT', 'DELETE'];
 
 export async function middleware(req: NextRequest) {
   console.log('method:', req.method);
+
+  // Skip authentication for like endpoint
+  if (req.nextUrl.pathname.endsWith('/like')) {
+    return NextResponse.next();
+  }
+
   // Check if the request method is POST
   if (PROTECTED_METHODS.includes(req.method)) {
     const authHeader = req.headers.get('Authorization');
@@ -20,11 +26,11 @@ export async function middleware(req: NextRequest) {
     }
 
     try {
-      verifyJWT(token);
+      await verifyJWT(token);
       return NextResponse.next();
     } catch (error) {
-      console.error('Error verifying token:', error);
-      return NextResponse.redirect(new URL('/', req.url));
+      console.error('Error verifying token');
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
   }
 
