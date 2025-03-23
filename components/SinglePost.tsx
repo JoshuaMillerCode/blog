@@ -14,10 +14,10 @@ import { AuthContext } from '../lib/AuthContext';
 import { useRouter } from 'next/navigation';
 import ThumbsUp from './ThumbsUp';
 
-
 export function SinglePost({ slug }: { slug: string }) {
   const [post, setPost] = useState<Post>();
   const [loading, setLoading] = useState(true);
+  const [parsedContent, setParsedContent] = useState<React.ReactNode>(null);
   const { user } = useContext(AuthContext);
   const router = useRouter();
   const [liked, setLiked] = useState(false);
@@ -37,6 +37,13 @@ export function SinglePost({ slug }: { slug: string }) {
 
     getPost();
   }, [slug]);
+
+  // Parse content in useEffect to avoid hydration mismatches
+  useEffect(() => {
+    if (post?.content) {
+      setParsedContent(parse(post.content));
+    }
+  }, [post?.content]);
 
   async function handleDelete() {
     try {
@@ -160,7 +167,9 @@ export function SinglePost({ slug }: { slug: string }) {
                   </div>
                 }
                 <hr className="w-full border-t border-zinc-300 pb-8 dark:border-zinc-700" />
-                <div className='text-zinc-500' data-post="yes">{parse(post.content)}</div>
+                <div className='text-zinc-500' data-post="yes" suppressHydrationWarning>
+                  {parsedContent}
+                </div>
                 <div className="flex gap-6 justify-end align-center mb-4 ">
                   <ThumbsUp post={post} liked={liked} handleLike={handleLike} />
                 </div>
