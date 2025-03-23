@@ -10,7 +10,7 @@ import { decodeToken } from '../lib/auth';
 import { Admin } from '../lib/types';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '../lib/AuthContext';
-
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const sans = Generator({
   src: '../fonts/Generator-Variable.ttf',
@@ -54,18 +54,19 @@ export default function RootLayout({
     };
   }, []);
 
-
   return (
     <html lang="en" className={`${sans.variable} font-sans`}>
       <Head>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
       </Head>
       <body className="bg-zinc-950">
-        <AuthContext.Provider value={{user, setUser}}>
-          <Header user={user} />
-          {children}
-          <Footer />
-        </AuthContext.Provider>
+        <ErrorBoundary>
+          <AuthContext.Provider value={{user, setUser}}>
+            <Header user={user} />
+            {children}
+            <Footer />
+          </AuthContext.Provider>
+        </ErrorBoundary>
       </body>
     </html>
   );
