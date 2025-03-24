@@ -13,6 +13,15 @@ import { useContext } from 'react';
 import { AuthContext } from '../lib/AuthContext';
 import { useRouter } from 'next/navigation';
 import ThumbsUp from './ThumbsUp';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-tsx';
+import 'prismjs/components/prism-css';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-markdown';
 
 export function SinglePost({ slug }: { slug: string }) {
   const [post, setPost] = useState<Post>();
@@ -44,6 +53,12 @@ export function SinglePost({ slug }: { slug: string }) {
       setParsedContent(parse(post.content));
     }
   }, [post?.content]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      Prism.highlightAll();
+    }
+  }, [post]);
 
   async function handleDelete() {
     try {

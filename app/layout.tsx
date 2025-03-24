@@ -2,6 +2,7 @@
 import React from 'react';
 import Head from 'next/head';
 import '../styles/globals.css';
+import 'prismjs/themes/prism-tomorrow.css';
 import Generator from 'next/font/local';
 import Header from '../components/Header';
 import Footer from '../components/Footer';

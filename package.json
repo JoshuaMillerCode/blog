@@ -23,6 +23,7 @@
     "lucide-react": "^0.427.0",
     "mongoose": "^8.9.3",
     "next": "15.2.0",
+    "prismjs": "^1.30.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "typescript": "^5.7.2"
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.17.9",
+    "@types/prismjs": "^1.26.5",
     "@types/react": "^19.0.10",
     "@types/react-dom": "19",
     "autoprefixer": "^10.4.20",

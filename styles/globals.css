@@ -17,12 +17,90 @@
 }
 
 [data-post="yes"] pre {
-  background: #44475a;
-  padding: 10px;
+  margin: 1em 0;
+  padding: 1em;
   border-radius: 5px;
+  background: #2d2d2d;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+[data-post="yes"] pre code {
+  padding: 0;
+  background: none;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+[data-post="yes"] code {
+  padding: 0.2em 0.4em;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  font-size: 0.85em;
+  font-family: 'Fira Code', monospace;
+}
+
+/* Override Prism styles only within blog posts */
+[data-post="yes"] .token.comment,
+[data-post="yes"] .token.prolog,
+[data-post="yes"] .token.doctype,
+[data-post="yes"] .token.cdata {
+  color: #8292a2;
+}
+
+[data-post="yes"] .token.punctuation {
   color: #f8f8f2;
-  margin-bottom: 2em;
+}
+
+[data-post="yes"] .token.namespace {
+  opacity: .7;
+}
+
+[data-post="yes"] .token.property,
+[data-post="yes"] .token.tag,
+[data-post="yes"] .token.constant,
+[data-post="yes"] .token.symbol,
+[data-post="yes"] .token.deleted {
+  color: #ff79c6;
+}
+
+[data-post="yes"] .token.boolean,
+[data-post="yes"] .token.number {
+  color: #bd93f9;
+}
+
+[data-post="yes"] .token.selector,
+[data-post="yes"] .token.attr-name,
+[data-post="yes"] .token.string,
+[data-post="yes"] .token.char,
+[data-post="yes"] .token.builtin,
+[data-post="yes"] .token.inserted {
+  color: #50fa7b;
+}
+
+[data-post="yes"] .token.operator,
+[data-post="yes"] .token.entity,
+[data-post="yes"] .token.url,
+[data-post="yes"] .language-css .token.string,
+[data-post="yes"] .style .token.string {
+  color: #f8f8f2;
+}
+
+[data-post="yes"] .token.atrule,
+[data-post="yes"] .token.attr-value,
+[data-post="yes"] .token.keyword {
+  color: #ff79c6;
+}
+
+[data-post="yes"] .token.function,
+[data-post="yes"] .token.class-name {
+  color: #8be9fd;
+}
+
+[data-post="yes"] .token.regex,
+[data-post="yes"] .token.important,
+[data-post="yes"] .token.variable {
+  color: #f1fa8c;
 }
 
 [data-post="yes"] img {
