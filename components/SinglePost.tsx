@@ -13,6 +13,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../lib/AuthContext';
 import { useRouter } from 'next/navigation';
 import ThumbsUp from './ThumbsUp';
+import 'prismjs/themes/prism-tomorrow.css';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-jsx';
@@ -55,10 +56,13 @@ export function SinglePost({ slug }: { slug: string }) {
   }, [post?.content]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      Prism.highlightAll();
+    if (typeof window !== 'undefined' && parsedContent) {
+      // Small delay to ensure content is rendered
+      setTimeout(() => {
+        Prism.highlightAll();
+      }, 0);
     }
-  }, [post]);
+  }, [parsedContent]);
 
   async function handleDelete() {
     try {

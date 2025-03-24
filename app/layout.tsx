@@ -74,10 +74,17 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${sans.variable} font-sans`} suppressHydrationWarning>
-      <Head>
+      <head>
         <title>YourAverageDev Blog</title>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-      </Head>
+        <link 
+          rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" 
+          integrity="sha512-vswe+cgvic/XBoF1OcM/TeJ2FW0OofqAVdCZiEYkd6dwGXthvkSFWOoGGJgS2CW70VK5dQM5Oh+7ne47s74VTg==" 
+          crossOrigin="anonymous" 
+          referrerPolicy="no-referrer" 
+        />
+      </head>
       <body className="bg-zinc-950" suppressHydrationWarning>
         <ErrorBoundary>
           <AuthContext.Provider value={{user, setUser}}>
